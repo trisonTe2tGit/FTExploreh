@@ -13,6 +13,7 @@ import { observer } from "mobx-react-lite";
 import ConnectionBadge from "../../Body/Home/ConnectionBadge/ConnectionBadge";
 import DAppRequestCompleted from "./DAppRequestCompleted/DAppRequestCompleted";
 import DAppRequestWebsite from "./DAppRequestWebsite/DAppRequestWebsite";
+import DAppRequestConnectionNotAvailable from "./DAppRequestConnectionNotAvailable/DAppRequestConnectionNotAvailable";
 
 const DAppRequestContent = observer(() => {
   const { zondStore, dAppRequestStore } = useStore();
@@ -33,9 +34,7 @@ const DAppRequestContent = observer(() => {
   }
 
   if (!isConnected) {
-    return (
-      <div className="flex justify-center pt-48">Connection not available!</div>
-    );
+    return <DAppRequestConnectionNotAvailable />;
   }
 
   return (

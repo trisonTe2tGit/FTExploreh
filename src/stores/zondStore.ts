@@ -186,6 +186,7 @@ class ZondStore {
   }
 
   async validateActiveAccount() {
+    this.activeAccount = { accountAddress: "" };
     const storedActiveAccount = await StorageUtil.getActiveAccount(
       this.zondConnection.blockchain,
     );
@@ -197,10 +198,12 @@ class ZondStore {
     if (!confirmedExistingActiveAccount) {
       await StorageUtil.clearActiveAccount(this.zondConnection.blockchain);
     }
-    this.activeAccount = {
-      ...this.activeAccount,
-      accountAddress: confirmedExistingActiveAccount,
-    };
+    runInAction(() => {
+      this.activeAccount = {
+        ...this.activeAccount,
+        accountAddress: confirmedExistingActiveAccount,
+      };
+    });
   }
 
   async getGasFeeData() {
